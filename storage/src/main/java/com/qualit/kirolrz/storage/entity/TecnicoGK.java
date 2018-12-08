@@ -14,7 +14,6 @@ public class TecnicoGK {
     private Long id;
 
     @Column(name = "dni")
-    @NotNull
     private String dni;
 
     @Column(name = "nombre")

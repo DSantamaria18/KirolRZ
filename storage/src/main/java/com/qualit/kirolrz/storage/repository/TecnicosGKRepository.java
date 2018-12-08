@@ -11,5 +11,7 @@ import java.util.List;
 @Transactional
 public interface TecnicosGKRepository extends JpaRepository<TecnicoGK, Long> {
 
-//        List<TecnicoGK> findAllBy();
+        List<TecnicoGK> findAllByNombre(String nombre);
+
+        List<TecnicoGK> findAllByDni(String dni);
 }
