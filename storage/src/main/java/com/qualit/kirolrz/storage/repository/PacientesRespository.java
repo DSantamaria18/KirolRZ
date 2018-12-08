@@ -1,4 +1,4 @@
-package com.qualit.kirolrz.storage.repository;
+/*package com.qualit.kirolrz.storage.repository;
 
 import com.qualit.kirolrz.storage.entity.Paciente;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +19,4 @@ public interface PacientesRespository extends JpaRepository<Paciente, Long> {
 
     List<Paciente> findAllByEmail(String email);
 
-}
+}*/

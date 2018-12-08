@@ -1,11 +1,13 @@
 package com.qualit.kirolrz.storage.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+/*
 
 @Entity
 @Table(name = "paciente")
-public class Paciente {
+public class Paciente implements Serializable {
 
     @Id
     @GeneratedValue
@@ -103,3 +105,4 @@ public class Paciente {
         return this.nombre.toUpperCase() + ' ' + this.apellidos.toUpperCase();
     }
 }
+*/
