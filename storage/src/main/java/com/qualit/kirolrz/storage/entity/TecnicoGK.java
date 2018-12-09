@@ -1,37 +1,45 @@
 package com.qualit.kirolrz.storage.entity;
 
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
 @Table(name="tecnicogk")
-public class TecnicoGK {
+public class TecnicoGK extends AuditModel {
     @Id
     @GeneratedValue
     @Column(name="id")
     private Long id;
 
-    @Column(name = "dni")
+    @Column(name = "dni", nullable = false, unique = true)
     private String dni;
 
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "apellidos")
+    @Column(name = "apellidos", nullable = false)
     private String apellidos;
 
-    @OneToMany(mappedBy = "centro_deportivo", fetch = FetchType.EAGER, targetEntity = CentroDeportivo.class)
-    private List<CentroDeportivo> centrosDeportivos;
+//    @OneToMany(mappedBy = "centro_deportivo", fetch = FetchType.EAGER, targetEntity = CentroDeportivo.class)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "centro_deportivo_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    private CentroDeportivo centroDeportivo;
 
     public TecnicoGK(){}
 
-    public TecnicoGK(@NotNull String dni, String nombre, String apellidos, List<CentroDeportivo> centrosDeportivos) {
+//    public TecnicoGK(String dni, String nombre, String apellidos, List<CentroDeportivo> centrosDeportivos) {
+    public TecnicoGK(String dni, String nombre, String apellidos, CentroDeportivo centrosDeportivo) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
-        this.centrosDeportivos = centrosDeportivos;
+//        this.centrosDeportivos = centrosDeportivos;
+        this.centroDeportivo = centroDeportivo;
     }
 
     public Long getId() {
@@ -66,12 +74,20 @@ public class TecnicoGK {
         this.apellidos = apellidos;
     }
 
-    public List<CentroDeportivo> getCentrosDeportivos() {
+    /*public List<CentroDeportivo> getCentrosDeportivos() {
         return centrosDeportivos;
     }
 
     public void setCentrosDeportivos(List<CentroDeportivo> centrosDeportivos) {
         this.centrosDeportivos = centrosDeportivos;
+    }*/
+
+    public CentroDeportivo getCentroDeportivo() {
+        return centroDeportivo;
+    }
+
+    public void setCentroDeportivo(CentroDeportivo centroDeportivo) {
+        this.centroDeportivo = centroDeportivo;
     }
 
     @Override

@@ -3,22 +3,20 @@ package com.qualit.kirolrz.storage.controller;
 import com.qualit.kirolrz.storage.entity.CentroSalud;
 import com.qualit.kirolrz.storage.service.CentrosSaludStorageServiceImpl;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
 @RestController
-@RequestMapping(value = "/OsasunZentroak")
+@RequestMapping(path = "/OsasunZentroak")
 public class CentrosSaludControllerImpl extends AbstractStorageController<CentroSalud, Long> {
 
     public CentrosSaludControllerImpl(CentrosSaludStorageServiceImpl centrosSaludStorageService){
         this.storageService = centrosSaludStorageService;
     }
 
-    @RequestMapping(value = {"/kaixo", "/kaixo/"}, method = RequestMethod.GET)
+    @GetMapping(value = "/kaixo")
+    @ResponseBody
     public String kaixo(){
         return "Kaixo!";
     }

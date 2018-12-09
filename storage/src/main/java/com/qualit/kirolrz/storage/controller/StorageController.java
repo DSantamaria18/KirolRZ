@@ -5,11 +5,11 @@ import java.util.Collection;
 public interface StorageController<T, Long> {
     T getById(Long id);
 
-    Collection<T> get();
+    Collection<T> findAll();
 
-    T post(T object);
+    T save(T object);
 
-    T put(Long identifier, T object);
+    T update(Long identifier, T object);
 
     T delete(Long identifier);
 }

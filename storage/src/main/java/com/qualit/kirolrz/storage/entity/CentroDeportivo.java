@@ -1,18 +1,22 @@
 package com.qualit.kirolrz.storage.entity;
 
+import org.springframework.data.annotation.CreatedBy;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "centro_deportivo")
-public class CentroDeportivo {
+public class CentroDeportivo extends AuditModel {
 
     @Id
     @Column(name = "id")
     @GeneratedValue
     private Long id;
 
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false)
     private String nombre;
+
+
 
     public CentroDeportivo(){}
 

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 @RestController
-@RequestMapping(value = "/Teknikariak")
+@RequestMapping(path = "/Teknikariak")
 public class TecnicosControllerImpl extends AbstractStorageController<TecnicoGK, Long> {
 
     public TecnicosControllerImpl(TecnicosStorageServiceImpl tecnicosStorageService){
@@ -26,19 +26,19 @@ public class TecnicosControllerImpl extends AbstractStorageController<TecnicoGK,
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
-    public Collection<TecnicoGK> get() {
+    public Collection<TecnicoGK> findAll() {
         return storageService.findAll();
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
-    public TecnicoGK post(TecnicoGK tecnicoGK) {
+    public TecnicoGK save(TecnicoGK tecnicoGK) {
         return storageService.save(tecnicoGK);
     }
 
     @RequestMapping(value = {"/id", "/id/"}, method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
-    public TecnicoGK put(@PathVariable Long id, TecnicoGK tecnicoGK) {
+    public TecnicoGK update(@PathVariable Long id, TecnicoGK tecnicoGK) {
         return storageService.update(tecnicoGK);
     }
 

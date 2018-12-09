@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 @RestController
-@RequestMapping(value = "/Kiroldegiak")
+@RequestMapping(path = "/Kiroldegiak")
 public class CentrosDeportivosControllerImpl extends AbstractStorageController<CentroDeportivo, Long> {
 
     public CentrosDeportivosControllerImpl(CentrosDeportivosStorageServiceImpl centrosDeportivosStorageService){
@@ -27,7 +27,7 @@ public class CentrosDeportivosControllerImpl extends AbstractStorageController<C
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
-    public Collection<CentroDeportivo> get() {
+    public Collection<CentroDeportivo> findAll() {
         return this.storageService.findAll();
     }
 

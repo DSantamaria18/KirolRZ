@@ -21,19 +21,19 @@ public abstract class AbstractStorageController<T, Long> implements StorageContr
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
-    public Collection<T> get() {
+    public Collection<T> findAll() {
         return storageService.findAll();
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
-    public T post(T object) {
+    public T save(T object) {
         return storageService.save(object);
     }
 
     @RequestMapping(value = {"/id", "/id/"}, method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
-    public T put(@PathVariable Long identifier, T object) {
+    public T update(@PathVariable Long identifier, T object) {
         return storageService.update(object);
     }
 

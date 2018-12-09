@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "centro_salud")
-public class CentroSalud {
+public class CentroSalud extends AuditModel {
 
     @Id
     @GeneratedValue
@@ -13,8 +13,7 @@ public class CentroSalud {
     private Long id;
 
 
-    @Column(name = "nombre")
-    @NotNull
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
     public CentroSalud(){}
