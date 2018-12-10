@@ -1,7 +1,5 @@
 package com.qualit.kirolrz.storage.entity;
 
-import org.springframework.data.annotation.CreatedBy;
-
 import javax.persistence.*;
 
 @Entity

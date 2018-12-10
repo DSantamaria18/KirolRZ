@@ -1,20 +1,20 @@
 package com.qualit.kirolrz.storage.service;
 
 import com.qualit.kirolrz.storage.entity.TecnicoGK;
+import com.qualit.kirolrz.storage.repository.TecnicosGKRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Collection;
 
 @Service
 public class TecnicosStorageServiceImpl extends AbstractStorageService<TecnicoGK, Long> {
-    @Override
-    public TecnicoGK getById(Long id) {
-        return super.getById(id);
+
+    public TecnicosStorageServiceImpl(TecnicosGKRepository tecnicosGKRepository){
+        this.repository = tecnicosGKRepository;
     }
 
-    @Override
-    public Collection<TecnicoGK> findAll() {
-        return super.findAll();
+
+   /* @Override
+    public TecnicoGK getById(Long id) {
+        return super.getById(id);
     }
 
     @Override
@@ -30,5 +30,5 @@ public class TecnicosStorageServiceImpl extends AbstractStorageService<TecnicoGK
     @Override
     public TecnicoGK delete(Long id) {
         return super.delete(id);
-    }
+    }*/
 }

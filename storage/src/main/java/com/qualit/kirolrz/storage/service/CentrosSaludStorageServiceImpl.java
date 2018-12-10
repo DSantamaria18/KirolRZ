@@ -1,20 +1,19 @@
 package com.qualit.kirolrz.storage.service;
 
 import com.qualit.kirolrz.storage.entity.CentroSalud;
+import com.qualit.kirolrz.storage.repository.CentrosSaludRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Collection;
 
 @Service
 public class CentrosSaludStorageServiceImpl extends AbstractStorageService<CentroSalud, Long> {
-    @Override
-    public CentroSalud getById(Long id) {
-        return super.getById(id);
+
+    public CentrosSaludStorageServiceImpl(CentrosSaludRepository centrosSaludRepository){
+        this.repository = centrosSaludRepository;
     }
 
-    @Override
-    public Collection<CentroSalud> findAll() {
-        return super.findAll();
+   /* @Override
+    public CentroSalud getById(Long id) {
+        return super.getById(id);
     }
 
     @Override
@@ -30,5 +29,5 @@ public class CentrosSaludStorageServiceImpl extends AbstractStorageService<Centr
     @Override
     public CentroSalud delete(Long id) {
         return super.delete(id);
-    }
+    }*/
 }

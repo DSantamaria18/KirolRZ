@@ -13,5 +13,4 @@ public interface CentrosSaludRepository extends JpaRepository<CentroSalud, Long>
 
     List<CentroSalud> findAllByNombre(String nombre);
 
-//    List<CentroSalud> findAllById(Long id);
 }

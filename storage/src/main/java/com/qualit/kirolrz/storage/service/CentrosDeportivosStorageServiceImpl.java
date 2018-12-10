@@ -1,20 +1,20 @@
 package com.qualit.kirolrz.storage.service;
 
 import com.qualit.kirolrz.storage.entity.CentroDeportivo;
+import com.qualit.kirolrz.storage.repository.CentrosDeportivosRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Collection;
 
 @Service
 public class CentrosDeportivosStorageServiceImpl extends AbstractStorageService<CentroDeportivo, Long> {
-    @Override
-    public CentroDeportivo getById(Long id) {
-        return super.getById(id);
+
+    public CentrosDeportivosStorageServiceImpl(CentrosDeportivosRepository centrosDeportivosRepository){
+        this.repository = centrosDeportivosRepository;
     }
 
-    @Override
-    public Collection<CentroDeportivo> findAll() {
-        return super.findAll();
+   /* @Override
+    public CentroDeportivo getById(Long id) {
+        return super.getById(id);
     }
 
     @Override
@@ -30,5 +30,5 @@ public class CentrosDeportivosStorageServiceImpl extends AbstractStorageService<
     @Override
     public CentroDeportivo delete(Long id) {
         return super.delete(id);
-    }
+    }*/
 }

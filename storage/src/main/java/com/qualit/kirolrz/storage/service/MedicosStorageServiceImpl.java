@@ -1,34 +1,23 @@
 package com.qualit.kirolrz.storage.service;
 
 import com.qualit.kirolrz.storage.entity.Medico;
+import com.qualit.kirolrz.storage.repository.MedicosRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
 @Service
 public class MedicosStorageServiceImpl extends AbstractStorageService<Medico, Long> {
-    @Override
-    public Medico getById(Long id) {
-        return super.getById(id);
+
+    public MedicosStorageServiceImpl(MedicosRepository medicosRepository){
+        this.repository = medicosRepository;
     }
 
-    @Override
-    public Collection<Medico> findAll() {
-        return super.findAll();
-    }
+   public Collection<Medico> findAllByNombre(String nombre){
+        return ((MedicosRepository) repository).findAllByNombre(nombre);
+   }
 
-    @Override
-    public Medico save(Medico object) {
-        return super.save(object);
-    }
-
-    @Override
-    public Medico update(Medico object) {
-        return super.update(object);
-    }
-
-    @Override
-    public Medico delete(Long id) {
-        return super.delete(id);
-    }
+   public Collection<Medico> findAllByNss(Long nss){
+       return ((MedicosRepository) repository).findAllByNss(nss);
+   }
 }

@@ -25,7 +25,7 @@ public abstract class  AbstractStorageService<T, Long> implements StorageService
 
     @Override
     public T update(T object) {
-        return update(object);
+        return repository.save(object);
     }
 
     @Override

@@ -2,21 +2,20 @@ package com.qualit.kirolrz.storage.service;
 
 
 import com.qualit.kirolrz.storage.entity.Paciente;
+import com.qualit.kirolrz.storage.repository.PacientesRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Collection;
 
 @Service
 public class PacientesStorageServiceImpl extends AbstractStorageService<Paciente, Long> {
 
-    @Override
-    public Paciente getById(Long id) {
-        return super.getById(id);
+    public PacientesStorageServiceImpl(PacientesRepository pacientesRepository){
+        this.repository = pacientesRepository;
     }
 
-    @Override
-    public Collection<Paciente> findAll() {
-        return super.findAll();
+
+   /* @Override
+    public Paciente getById(Long id) {
+        return super.getById(id);
     }
 
     @Override
@@ -32,7 +31,7 @@ public class PacientesStorageServiceImpl extends AbstractStorageService<Paciente
     @Override
     public Paciente delete(Long id) {
         return super.delete(id);
-    }
+    }*/
 }
 /*
 import com.qualit.kirolrz.storage.entity.Paciente;
