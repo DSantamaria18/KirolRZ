@@ -7,20 +7,20 @@ import java.util.Date;
 
 @Entity
 @Table(name = "paciente")
-public class Paciente implements Serializable {
+public class Paciente extends AuditModel {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
     @Column(name = "apellidos")
     private String apellidos;
 
-    @Column(name = "dni")
+    @Column(name = "dni", unique = true, nullable = false)
     private String dni;
 
     @Column(name = "email")
@@ -36,10 +36,10 @@ public class Paciente implements Serializable {
     public Paciente(){}
 
     public Paciente(String nombre, String apellidos, String dni, String email, Date fnacimiento, Genero genero) {
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.dni = dni;
-        this.email = email;
+        this.nombre = nombre.toUpperCase();
+        this.apellidos = apellidos.toUpperCase();
+        this.dni = dni.toUpperCase();
+        this.email = email.toLowerCase();
         this.fnacimiento = fnacimiento;
         this.genero = genero;
     }
@@ -57,7 +57,7 @@ public class Paciente implements Serializable {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.nombre = nombre.toUpperCase();
     }
 
     public String getApellidos() {
@@ -65,7 +65,7 @@ public class Paciente implements Serializable {
     }
 
     public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+        this.apellidos = apellidos.toUpperCase();
     }
 
     public String getDni() {
@@ -73,7 +73,7 @@ public class Paciente implements Serializable {
     }
 
     public void setDni(String dni) {
-        this.dni = dni;
+        this.dni = dni.toUpperCase();
     }
 
     public String getEmail() {
@@ -81,7 +81,7 @@ public class Paciente implements Serializable {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.toLowerCase();
     }
 
     public Date getFnacimiento() {
