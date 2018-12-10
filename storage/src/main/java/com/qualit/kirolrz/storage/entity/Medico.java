@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Medico extends AuditModel {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -23,22 +23,18 @@ public class Medico extends AuditModel {
     @Column(name = "apellidos", nullable = false)
     private String apellidos;
 
-    //    @OneToMany(mappedBy = "centro_salud", fetch = FetchType.EAGER, targetEntity = CentroSalud.class)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "centro_salud_id", nullable = false)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private CentroSalud centroSalud;
-//    private List<CentroSalud> centrosSalud;
 
     public Medico() {
     }
 
-//    public Medico(Long nss, String nombre, String apellidos, List<CentroSalud> centrosSalud) {
     public Medico(Long nss, String nombre, String apellidos, CentroSalud centroSalud) {
         this.nss = nss;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-//        this.centrosSalud = centrosSalud;
+        this.nombre = nombre.toUpperCase();
+        this.apellidos = apellidos.toUpperCase();
         this.centroSalud = centroSalud;
     }
 
@@ -59,7 +55,7 @@ public class Medico extends AuditModel {
     }
 
     public String getNombre() {
-        return nombre;
+        return nombre.toUpperCase();
     }
 
     public void setNombre(String nombre) {
@@ -67,20 +63,12 @@ public class Medico extends AuditModel {
     }
 
     public String getApellidos() {
-        return apellidos;
+        return apellidos.toUpperCase();
     }
 
     public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+        this.apellidos = apellidos.toUpperCase();
     }
-
-   /* public List<CentroSalud> getCentrosSalud() {
-        return centrosSalud;
-    }
-
-    public void setCentrosSalud(List<CentroSalud> centrosSalud) {
-        this.centrosSalud = centrosSalud;
-    }*/
 
     public CentroSalud getCentroSalud() {
         return centroSalud;

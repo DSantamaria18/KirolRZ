@@ -8,18 +8,18 @@ import javax.validation.constraints.NotNull;
 public class CentroSalud extends AuditModel {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
 
-    @Column(name = "nombre", nullable = false)
+    @Column(name = "nombre", nullable = false, unique = true)
     private String nombre;
 
     public CentroSalud(){}
 
     public CentroSalud(@NotNull String nombre) {
-        this.nombre = nombre;
+        this.nombre = nombre.toUpperCase();
     }
 
     public Long getId() {
@@ -35,6 +35,6 @@ public class CentroSalud extends AuditModel {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.nombre = nombre.toUpperCase();
     }
 }

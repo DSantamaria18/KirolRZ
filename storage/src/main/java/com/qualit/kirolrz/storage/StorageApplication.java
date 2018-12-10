@@ -1,4 +1,4 @@
-package com.qualit.kirolrz.storage.application;
+package com.qualit.kirolrz.storage;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,10 +9,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan("com.qualit.kirolrz.storage")
-@EntityScan("com.qualit.kirolrz.storage")
+//@ComponentScan("com.qualit.kirolrz.storage")
+//@EntityScan("com.qualit.kirolrz.storage")
 @EnableJpaAuditing
-@EnableJpaRepositories(basePackages = {"com.qualit.kirolrz.storage.repository"})
+//@EnableJpaRepositories(basePackages = {"com.qualit.kirolrz.storage.repository"})
 public class StorageApplication {
 
     public static void main(String[] args) {

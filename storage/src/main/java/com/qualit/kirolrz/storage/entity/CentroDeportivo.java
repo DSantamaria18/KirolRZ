@@ -8,10 +8,10 @@ public class CentroDeportivo extends AuditModel {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombre", nullable = false)
+    @Column(name = "nombre", nullable = false, unique = true)
     private String nombre;
 
 
@@ -19,7 +19,7 @@ public class CentroDeportivo extends AuditModel {
     public CentroDeportivo(){}
 
     public CentroDeportivo(String nombre) {
-        this.nombre = nombre;
+        this.nombre = nombre.toUpperCase();
     }
 
     public Long getId() {
@@ -35,7 +35,7 @@ public class CentroDeportivo extends AuditModel {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.nombre = nombre.toUpperCase();
     }
 
 

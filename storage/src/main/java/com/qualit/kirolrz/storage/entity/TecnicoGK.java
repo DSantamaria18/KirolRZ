@@ -5,12 +5,13 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="tecnicogk")
 public class TecnicoGK extends AuditModel {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Long id;
 
@@ -18,12 +19,12 @@ public class TecnicoGK extends AuditModel {
     private String dni;
 
     @Column(name = "nombre", nullable = false)
+    @Size(min = 2)
     private String nombre;
 
     @Column(name = "apellidos", nullable = false)
     private String apellidos;
 
-//    @OneToMany(mappedBy = "centro_deportivo", fetch = FetchType.EAGER, targetEntity = CentroDeportivo.class)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "centro_deportivo_id", nullable = false)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
@@ -31,12 +32,10 @@ public class TecnicoGK extends AuditModel {
 
     public TecnicoGK(){}
 
-//    public TecnicoGK(String dni, String nombre, String apellidos, List<CentroDeportivo> centrosDeportivos) {
-    public TecnicoGK(String dni, String nombre, String apellidos, CentroDeportivo centrosDeportivo) {
-        this.dni = dni;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-//        this.centrosDeportivos = centrosDeportivos;
+    public TecnicoGK(String dni, String nombre, String apellidos, CentroDeportivo centroDeportivo) {
+        this.dni = dni.toUpperCase();
+        this.nombre = nombre.toUpperCase();
+        this.apellidos = apellidos.toUpperCase();
         this.centroDeportivo = centroDeportivo;
     }
 
@@ -53,7 +52,7 @@ public class TecnicoGK extends AuditModel {
     }
 
     public void setDni(String dni) {
-        this.dni = dni;
+        this.dni = dni.toUpperCase();
     }
 
     public String getNombre() {
@@ -61,7 +60,7 @@ public class TecnicoGK extends AuditModel {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.nombre = nombre.toUpperCase();
     }
 
     public String getApellidos() {
@@ -69,16 +68,8 @@ public class TecnicoGK extends AuditModel {
     }
 
     public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+        this.apellidos = apellidos.toUpperCase();
     }
-
-    /*public List<CentroDeportivo> getCentrosDeportivos() {
-        return centrosDeportivos;
-    }
-
-    public void setCentrosDeportivos(List<CentroDeportivo> centrosDeportivos) {
-        this.centrosDeportivos = centrosDeportivos;
-    }*/
 
     public CentroDeportivo getCentroDeportivo() {
         return centroDeportivo;

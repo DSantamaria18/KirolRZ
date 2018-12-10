@@ -6,13 +6,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 
 
 @Repository
 @Transactional
 public interface MedicosRepository extends JpaRepository<Medico, Long> {
 
-    Collection<Medico> findAllByNombre(String nombre);
+    List<Medico> findAllByNombre(String nombre);
 
-    Collection<Medico> findAllByNss(Long nss);
+    List<Medico> findAllByNss(Long nss);
 }
