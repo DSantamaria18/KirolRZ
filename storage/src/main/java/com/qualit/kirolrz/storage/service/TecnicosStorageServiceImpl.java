@@ -10,25 +10,4 @@ public class TecnicosStorageServiceImpl extends AbstractStorageService<TecnicoGK
     public TecnicosStorageServiceImpl(TecnicosGKRepository tecnicosGKRepository){
         this.repository = tecnicosGKRepository;
     }
-
-
-   /* @Override
-    public TecnicoGK getById(Long id) {
-        return super.getById(id);
-    }
-
-    @Override
-    public TecnicoGK save(TecnicoGK object) {
-        return super.save(object);
-    }
-
-    @Override
-    public TecnicoGK update(TecnicoGK object) {
-        return super.update(object);
-    }
-
-    @Override
-    public TecnicoGK delete(Long id) {
-        return super.delete(id);
-    }*/
 }

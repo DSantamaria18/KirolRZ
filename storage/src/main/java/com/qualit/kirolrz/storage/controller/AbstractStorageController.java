@@ -13,7 +13,7 @@ public abstract class AbstractStorageController<T, Long> implements StorageContr
 
     protected StorageService<T, Long> storageService;
 
-    @RequestMapping(value = {"/id", "/id/"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = {"/{id}", "/{id}/"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
     public T getById(@PathVariable Long id) {
         return storageService.getById(id);
@@ -31,13 +31,13 @@ public abstract class AbstractStorageController<T, Long> implements StorageContr
         return storageService.save(object);
     }
 
-    @RequestMapping(value = {"/id", "/id/"}, method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = {"/{id}", "/{id}/"}, method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
-    public T update(@PathVariable Long identifier, T object) {
+    public T update(@PathVariable Long id, T object) {
         return storageService.update(object);
     }
 
-    @RequestMapping(value = {"/id", "/id/"}, method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = {"/{id}", "/{id}/"}, method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
     public T delete(@PathVariable Long id) {
         return storageService.delete(id);

@@ -1,6 +1,7 @@
 package com.qualit.kirolrz.storage.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name="tecnicogk")
 public class TecnicoGK extends AuditModel {
     @Id

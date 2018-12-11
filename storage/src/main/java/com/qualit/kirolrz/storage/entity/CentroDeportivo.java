@@ -1,8 +1,11 @@
 package com.qualit.kirolrz.storage.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "centro_deportivo")
 public class CentroDeportivo extends AuditModel {
 
