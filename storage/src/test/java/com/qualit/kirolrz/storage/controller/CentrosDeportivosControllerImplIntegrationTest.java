@@ -2,15 +2,12 @@ package com.qualit.kirolrz.storage.controller;
 
 import com.qualit.kirolrz.storage.StorageApplication;
 import com.qualit.kirolrz.storage.entity.CentroDeportivo;
-import com.qualit.kirolrz.storage.repository.CentrosDeportivosRepository;
 import com.qualit.kirolrz.storage.service.CentrosDeportivosStorageServiceImpl;
-import com.qualit.kirolrz.storage.service.CentrosSaludStorageServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.TestPropertySource;
