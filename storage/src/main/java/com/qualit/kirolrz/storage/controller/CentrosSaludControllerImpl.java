@@ -5,7 +5,7 @@ import com.qualit.kirolrz.storage.service.CentrosSaludStorageServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/OsasunZentroak")
+@RequestMapping("/OsasunZentroak")
 public class CentrosSaludControllerImpl extends AbstractStorageController<CentroSalud, Long> {
 
     public CentrosSaludControllerImpl(CentrosSaludStorageServiceImpl centrosSaludStorageService){
