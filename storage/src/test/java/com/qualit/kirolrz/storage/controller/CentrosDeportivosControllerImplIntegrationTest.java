@@ -3,6 +3,8 @@ package com.qualit.kirolrz.storage.controller;
 import com.qualit.kirolrz.storage.StorageApplication;
 import com.qualit.kirolrz.storage.entity.CentroDeportivo;
 import com.qualit.kirolrz.storage.repository.CentrosDeportivosRepository;
+import com.qualit.kirolrz.storage.service.CentrosDeportivosStorageServiceImpl;
+import com.qualit.kirolrz.storage.service.CentrosSaludStorageServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,9 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -32,7 +33,7 @@ class CentrosDeportivosControllerImplIntegrationTest {
     private MockMvc mvc;
 
     @Autowired
-    private CentrosDeportivosRepository centrosDeportivosRepository;
+    private CentrosDeportivosStorageServiceImpl centrosDeportivosStorageService;
 
     @Test
     public void giveCentrosDeportivos_whenFindAll_thenStatus200() throws Exception{
@@ -44,29 +45,22 @@ class CentrosDeportivosControllerImplIntegrationTest {
     }
 
     @Test
-    public void giveCentrosDeportivos_whenGetById_thenStatus200_andRetrievedCentroDeportivoHasRequestedId() throws Exception{
+    @Transactional
+    public void giveCentrosDeportivos_whenGetById_thenStatus200() throws Exception{
 
-        CentroDeportivo centroDeportivo = centrosDeportivosRepository.getOne(1L);
+        CentroDeportivo centroDeportivo = centrosDeportivosStorageService.getById(1L);
+        String expectedResponseId = "\"id\":" + centroDeportivo.getId();
+        String expectedResponseNombreCentroDeportivo = "\"nombre\":\"" + centroDeportivo.getNombre();
 
-        MvcResult result = mvc.perform(get("/OsasunZentroak/1")
+        MvcResult result = mvc.perform(get("/Kiroldegiak/1")
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andReturn();
 
         MockHttpServletResponse response = result.getResponse();
 
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getStatus()).isEqualTo(200);
         assertThat(response.getContentType()).isEqualTo(MediaType.APPLICATION_JSON_UTF8_VALUE);
-
-
-
-
-        /*mvc.perform()
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("$[0].id", is(1L)))
-                .andExpect(jsonPath("$[0].id", is(1L)));
-*/
-
+        assertThat(response.getContentAsString()).contains(expectedResponseId);
+        assertThat(response.getContentAsString()).contains(expectedResponseNombreCentroDeportivo);
     }
-
 }
