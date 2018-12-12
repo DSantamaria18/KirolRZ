@@ -33,7 +33,7 @@ public abstract class AbstractStorageController<T, Long> implements StorageContr
 
     @RequestMapping(value = {"/{id}", "/{id}/"}, method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
-    public T update(@PathVariable Long id, T object) {
+    public T update(@PathVariable Long id, @RequestBody T object) {
         return storageService.update(object);
     }
 

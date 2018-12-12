@@ -3,7 +3,10 @@ package com.qualit.kirolrz.storage.controller;
 import com.google.gson.Gson;
 import com.qualit.kirolrz.storage.StorageApplication;
 import com.qualit.kirolrz.storage.entity.CentroDeportivo;
+import com.qualit.kirolrz.storage.repository.CentrosDeportivosRepository;
 import com.qualit.kirolrz.storage.service.CentrosDeportivosStorageServiceImpl;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +21,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.assertj.core.api.Assertions.setRemoveAssertJRelatedElementsFromStackTrace;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -28,11 +31,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestPropertySource(locations = "classpath:application-integrationtest.properties")
 class CentrosDeportivosControllerImplIntegrationTest {
 
+    private Gson gson = new Gson();
+
     @Autowired
     private MockMvc mvc;
 
     @Autowired
     private CentrosDeportivosStorageServiceImpl centrosDeportivosStorageService;
+
+    @Autowired
+    private CentrosDeportivosRepository centrosDeportivosRepository;
 
     @Test
     public void givenCentrosDeportivos_whenFindAll_thenStatus200() throws Exception {
@@ -67,7 +75,6 @@ class CentrosDeportivosControllerImplIntegrationTest {
     @Transactional
     public void givenCentroDeportivo_whenPost_thenStatus201() throws Exception {
 
-        Gson gson = new Gson();
         CentroDeportivo centroDeportivo = new CentroDeportivo("PANDO");
         String jsonBody = gson.toJson(centroDeportivo);
 
@@ -78,11 +85,31 @@ class CentrosDeportivosControllerImplIntegrationTest {
                 .andExpect(status().isCreated())
                 .andReturn();
 
-        MockHttpServletResponse response = result.getResponse();
-        String content = response.getContentAsString();
+        String content = result.getResponse().getContentAsString();
         CentroDeportivo fetchedCentroDeportivo = gson.fromJson(content, CentroDeportivo.class);
-
         assertThat(centroDeportivo.getNombre()).isEqualTo(fetchedCentroDeportivo.getNombre());
+        assertThat(fetchedCentroDeportivo.getNombre()).isEqualTo("PANDO");
     }
-    
+
+    @Test
+    @Transactional
+    public void givenAnExistingCentroDeportivo_whenUpdate_thenStatus200_andResourceIsUpdated() throws Exception{
+        CentroDeportivo centroDeportivo = new CentroDeportivo("BALLONTI");
+        centrosDeportivosRepository.save(centroDeportivo);
+
+        centroDeportivo.setNombre("BALLONTI2");
+        String jsonBody = gson.toJson(centroDeportivo);
+
+        MvcResult result = mvc.perform(put("/Kiroldegiak/" + centroDeportivo.getId().toString())
+                .content(jsonBody)
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        CentroDeportivo fetchedCentroDeportivo = gson.fromJson(result.getResponse().getContentAsString(), CentroDeportivo.class);
+        assertThat(centroDeportivo.getNombre()).isEqualTo(fetchedCentroDeportivo.getNombre());
+        assertThat(fetchedCentroDeportivo.getNombre()).isEqualTo("BALLONTI2");
+    }
+
 }
