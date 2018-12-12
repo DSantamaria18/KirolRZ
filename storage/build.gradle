@@ -46,7 +46,11 @@ dependencies {
     testCompile "org.mockito:mockito-core:2.+"
     testCompile('org.mockito:mockito-junit-jupiter:2.18.3')
     testCompile('org.springframework.boot:spring-boot-starter-test')
-   
+
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
+
+
 }
 
 /*test {
