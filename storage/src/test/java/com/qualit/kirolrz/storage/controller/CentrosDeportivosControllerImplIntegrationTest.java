@@ -1,5 +1,6 @@
 package com.qualit.kirolrz.storage.controller;
 
+import com.google.gson.Gson;
 import com.qualit.kirolrz.storage.StorageApplication;
 import com.qualit.kirolrz.storage.entity.CentroDeportivo;
 import com.qualit.kirolrz.storage.service.CentrosDeportivosStorageServiceImpl;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -33,7 +35,7 @@ class CentrosDeportivosControllerImplIntegrationTest {
     private CentrosDeportivosStorageServiceImpl centrosDeportivosStorageService;
 
     @Test
-    public void giveCentrosDeportivos_whenFindAll_thenStatus200() throws Exception{
+    public void givenCentrosDeportivos_whenFindAll_thenStatus200() throws Exception {
 
         mvc.perform(get("/OsasunZentroak")
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
@@ -43,7 +45,7 @@ class CentrosDeportivosControllerImplIntegrationTest {
 
     @Test
     @Transactional
-    public void giveCentrosDeportivos_whenGetById_thenStatus200() throws Exception{
+    public void givenCentroDeportivo_whenGetById_thenStatus200() throws Exception {
 
         CentroDeportivo centroDeportivo = centrosDeportivosStorageService.getById(1L);
         String expectedResponseId = "\"id\":" + centroDeportivo.getId();
@@ -60,4 +62,27 @@ class CentrosDeportivosControllerImplIntegrationTest {
         assertThat(response.getContentAsString()).contains(expectedResponseId);
         assertThat(response.getContentAsString()).contains(expectedResponseNombreCentroDeportivo);
     }
+
+    @Test
+    @Transactional
+    public void givenCentroDeportivo_whenPost_thenStatus201() throws Exception {
+
+        Gson gson = new Gson();
+        CentroDeportivo centroDeportivo = new CentroDeportivo("PANDO");
+        String jsonBody = gson.toJson(centroDeportivo);
+
+        MvcResult result = mvc.perform(post("/Kiroldegiak")
+                .content(jsonBody)
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        MockHttpServletResponse response = result.getResponse();
+        String content = response.getContentAsString();
+        CentroDeportivo fetchedCentroDeportivo = gson.fromJson(content, CentroDeportivo.class);
+
+        assertThat(centroDeportivo.getNombre()).isEqualTo(fetchedCentroDeportivo.getNombre());
+    }
+    
 }
