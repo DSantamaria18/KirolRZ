@@ -1,12 +1,11 @@
 package com.qualit.kirolrz.storage.controller;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.qualit.kirolrz.storage.StorageApplication;
 import com.qualit.kirolrz.storage.entity.CentroDeportivo;
 import com.qualit.kirolrz.storage.repository.CentrosDeportivosRepository;
 import com.qualit.kirolrz.storage.service.CentrosDeportivosStorageServiceImpl;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.setRemoveAssertJRelatedElementsFromStackTrace;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -31,8 +29,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestPropertySource(locations = "classpath:application-integrationtest.properties")
 class CentrosDeportivosControllerImplIntegrationTest {
 
-    private Gson gson = new Gson();
-
+    private Gson gson = new GsonBuilder()
+            .setDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ")
+            .create();
+    
     @Autowired
     private MockMvc mvc;
 
@@ -93,12 +93,14 @@ class CentrosDeportivosControllerImplIntegrationTest {
 
     @Test
     @Transactional
-    public void givenAnExistingCentroDeportivo_whenUpdate_thenStatus200_andResourceIsUpdated() throws Exception{
+    public void givenAnExistingCentroDeportivo_whenUpdate_thenStatus200_andResourceIsUpdated() throws Exception {
         CentroDeportivo centroDeportivo = new CentroDeportivo("BALLONTI");
         centrosDeportivosRepository.save(centroDeportivo);
 
-        centroDeportivo.setNombre("BALLONTI2");
+        CentroDeportivo updatedCentroDeportivo = centrosDeportivosRepository.findAllByNombre("BALLONTI").get(0);
+        updatedCentroDeportivo.setNombre("BALLONTI2");
         String jsonBody = gson.toJson(centroDeportivo);
+
 
         MvcResult result = mvc.perform(put("/Kiroldegiak/" + centroDeportivo.getId().toString())
                 .content(jsonBody)
