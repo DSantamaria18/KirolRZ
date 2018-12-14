@@ -7,7 +7,6 @@ import com.qualit.kirolrz.storage.entity.Genero;
 import com.qualit.kirolrz.storage.entity.Paciente;
 import com.qualit.kirolrz.storage.repository.PacientesRepository;
 import com.qualit.kirolrz.storage.service.PacientesStorageServiceImpl;
-import org.hibernate.Hibernate;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
