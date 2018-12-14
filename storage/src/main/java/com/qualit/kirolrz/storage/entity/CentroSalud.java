@@ -1,6 +1,8 @@
 package com.qualit.kirolrz.storage.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -39,5 +41,13 @@ public class CentroSalud extends AuditModel {
 
     public void setNombre(String nombre) {
         this.nombre = nombre.toUpperCase();
+    }
+
+    @Override
+    public String toString() {
+        return "CentroSalud{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                '}';
     }
 }

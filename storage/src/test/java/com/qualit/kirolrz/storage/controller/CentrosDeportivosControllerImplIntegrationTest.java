@@ -24,28 +24,29 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = StorageApplication.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = StorageApplication.class)
 @AutoConfigureMockMvc
 @TestPropertySource(locations = "classpath:application-integrationtest.properties")
 class CentrosDeportivosControllerImplIntegrationTest {
 
     private Gson gson = new GsonBuilder()
+            .setPrettyPrinting()
             .setDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ")
             .create();
-    
+
     @Autowired
     private MockMvc mvc;
 
     @Autowired
-    private CentrosDeportivosStorageServiceImpl centrosDeportivosStorageService;
+    private CentrosDeportivosStorageServiceImpl service;
 
     @Autowired
-    private CentrosDeportivosRepository centrosDeportivosRepository;
+    private CentrosDeportivosRepository repository;
 
     @Test
     public void givenCentrosDeportivos_whenFindAll_thenStatus200() throws Exception {
 
-        mvc.perform(get("/OsasunZentroak")
+        mvc.perform(get("/Kiroldegiak")
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_UTF8_VALUE));
@@ -55,7 +56,7 @@ class CentrosDeportivosControllerImplIntegrationTest {
     @Transactional
     public void givenCentroDeportivo_whenGetById_thenStatus200() throws Exception {
 
-        CentroDeportivo centroDeportivo = centrosDeportivosStorageService.getById(1L);
+        CentroDeportivo centroDeportivo = service.getById(1L);
         String expectedResponseId = "\"id\":" + centroDeportivo.getId();
         String expectedResponseNombreCentroDeportivo = "\"nombre\":\"" + centroDeportivo.getNombre();
 
@@ -95,12 +96,11 @@ class CentrosDeportivosControllerImplIntegrationTest {
     @Transactional
     public void givenAnExistingCentroDeportivo_whenUpdate_thenStatus200_andResourceIsUpdated() throws Exception {
         CentroDeportivo centroDeportivo = new CentroDeportivo("BALLONTI");
-        centrosDeportivosRepository.save(centroDeportivo);
+        repository.save(centroDeportivo);
 
-        CentroDeportivo updatedCentroDeportivo = centrosDeportivosRepository.findAllByNombre("BALLONTI").get(0);
+        CentroDeportivo updatedCentroDeportivo = repository.findAllByNombre("BALLONTI").get(0);
         updatedCentroDeportivo.setNombre("BALLONTI2");
         String jsonBody = gson.toJson(centroDeportivo);
-
 
         MvcResult result = mvc.perform(put("/Kiroldegiak/" + centroDeportivo.getId().toString())
                 .content(jsonBody)
@@ -112,6 +112,25 @@ class CentrosDeportivosControllerImplIntegrationTest {
         CentroDeportivo fetchedCentroDeportivo = gson.fromJson(result.getResponse().getContentAsString(), CentroDeportivo.class);
         assertThat(centroDeportivo.getNombre()).isEqualTo(fetchedCentroDeportivo.getNombre());
         assertThat(fetchedCentroDeportivo.getNombre()).isEqualTo("BALLONTI2");
+    }
+
+    @Test
+    @Transactional
+    public void givenAnExistingCentroDeportivo_whenDelete_thenStatus200_andResourceIsDeleted() throws Exception {
+        CentroDeportivo centroDeportivo = new CentroDeportivo("PISCINAS");
+        repository.save(centroDeportivo);
+        centroDeportivo = repository.findAllByNombre("PISCINAS").get(0);
+        String jsonBody = gson.toJson(centroDeportivo);
+
+        MvcResult result = mvc.perform(delete("/Kiroldegiak/" + centroDeportivo.getId().toString())
+                .content(jsonBody)
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        CentroDeportivo deletedCentroDeportivo = gson.fromJson(result.getResponse().getContentAsString(), CentroDeportivo.class);
+        assertThat(repository.findAllByNombre(deletedCentroDeportivo.getNombre()).size()).isEqualTo(0);
     }
 
 }

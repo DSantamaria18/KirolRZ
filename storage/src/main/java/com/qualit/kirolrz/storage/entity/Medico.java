@@ -1,6 +1,8 @@
 package com.qualit.kirolrz.storage.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -80,8 +82,18 @@ public class Medico extends AuditModel {
         this.centroSalud = centroSalud;
     }
 
+    public String toShortString() {
+        return this.nombre.toUpperCase() + ' ' + this.apellidos.toUpperCase();
+    }
+
     @Override
     public String toString() {
-        return this.nombre.toUpperCase() + ' ' + this.apellidos.toUpperCase();
+        return "Medico{" +
+                "id=" + id +
+                ", nss=" + nss +
+                ", nombre='" + nombre + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", centroSalud=" + centroSalud +
+                '}';
     }
 }
