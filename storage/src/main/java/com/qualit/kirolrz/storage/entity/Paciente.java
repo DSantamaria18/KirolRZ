@@ -1,5 +1,6 @@
 package com.qualit.kirolrz.storage.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -30,6 +31,7 @@ public class Paciente extends AuditModel {
     private String email;
 
     @Column(name = "fecha_nacimiento")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSSZ")
     private Date fnacimiento;
 
     @Column(name = "genero")
