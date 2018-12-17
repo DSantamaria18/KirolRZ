@@ -10,11 +10,11 @@ import javax.validation.constraints.Size;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name="tecnicogk")
+@Table(name = "tecnicogk")
 public class TecnicoGK extends AuditModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "dni", nullable = false, unique = true)
@@ -27,18 +27,22 @@ public class TecnicoGK extends AuditModel {
     @Column(name = "apellidos", nullable = false)
     private String apellidos;
 
+   /*
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "centro_deportivo_id", nullable = false)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private CentroDeportivo centroDeportivo;
+    */
 
-    public TecnicoGK(){}
+    public TecnicoGK() {
+    }
 
-    public TecnicoGK(String dni, String nombre, String apellidos, CentroDeportivo centroDeportivo) {
+    //    public TecnicoGK(String dni, String nombre, String apellidos, CentroDeportivo centroDeportivo) {
+    public TecnicoGK(String dni, String nombre, String apellidos) {
         this.dni = dni.toUpperCase();
         this.nombre = nombre.toUpperCase();
         this.apellidos = apellidos.toUpperCase();
-        this.centroDeportivo = centroDeportivo;
+//        this.centroDeportivo = centroDeportivo;
     }
 
     public Long getId() {
@@ -73,13 +77,15 @@ public class TecnicoGK extends AuditModel {
         this.apellidos = apellidos.toUpperCase();
     }
 
-    public CentroDeportivo getCentroDeportivo() {
+   /*
+   public CentroDeportivo getCentroDeportivo() {
         return centroDeportivo;
     }
 
     public void setCentroDeportivo(CentroDeportivo centroDeportivo) {
         this.centroDeportivo = centroDeportivo;
     }
+    */
 
     @Override
     public String toString() {

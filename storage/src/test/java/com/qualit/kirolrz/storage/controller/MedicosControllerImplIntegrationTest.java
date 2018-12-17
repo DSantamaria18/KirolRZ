@@ -72,7 +72,7 @@ class MedicosControllerImplIntegrationTest {
         String expectedResponseId = "\"id\":" + medico.getId();
         String expectedResponseNombreMedico = "\"nombre\":\"" + medico.getNombre();
         String expectedResponseApellidosMedico = "\"apellidos\":\"" + medico.getApellidos();
-        String expectedResponseCentroSaludMedico =  "\"nombre\":\"" + medico.getCentroSalud().getNombre();
+//        String expectedResponseCentroSaludMedico =  "\"nombre\":\"" + medico.getCentroSalud().getNombre();
 
         MvcResult result = mvc.perform(get("/Medikuak/1")
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
@@ -85,15 +85,16 @@ class MedicosControllerImplIntegrationTest {
         assertThat(response.getContentAsString()).contains(expectedResponseId);
         assertThat(response.getContentAsString()).contains(expectedResponseNombreMedico);
         assertThat(response.getContentAsString()).contains(expectedResponseApellidosMedico);
-        assertThat(response.getContentAsString()).contains(expectedResponseCentroSaludMedico);
+//        assertThat(response.getContentAsString()).contains(expectedResponseCentroSaludMedico);
     }
 
     @Test
     @Transactional
     public void givenMedico_whenPost_thenStatus201() throws Exception {
         CentroSalud centroSalud = centrosSaludRepository.getOne(1L);
-        CentroSalud unproxiedCentroSalud = (CentroSalud) Hibernate.unproxy(centroSalud);
-        Medico medico = new Medico(123455L ,"PACO", "PORRAS PEREZ", unproxiedCentroSalud);
+//        CentroSalud unproxiedCentroSalud = (CentroSalud) Hibernate.unproxy(centroSalud);
+//        Medico medico = new Medico(123455L ,"PACO", "PORRAS PEREZ", unproxiedCentroSalud);
+        Medico medico = new Medico(123455L ,"PACO", "PORRAS PEREZ");
         String jsonBody = gson.toJson(medico);
 
         MvcResult result = mvc.perform(post("/Medikuak")
@@ -108,15 +109,16 @@ class MedicosControllerImplIntegrationTest {
         assertThat(medico.getNombre()).isEqualTo(fetchedMedico.getNombre());
         assertThat(medico.getApellidos()).isEqualTo(fetchedMedico.getApellidos());
         assertThat(medico.getNss()).isEqualTo(fetchedMedico.getNss());
-        assertThat(medico.getCentroSalud().getId()).isEqualTo(fetchedMedico.getCentroSalud().getId());
+//        assertThat(medico.getCentroSalud().getId()).isEqualTo(fetchedMedico.getCentroSalud().getId());
     }
 
     @Test
     @Transactional
     public void givenAnExistingMedico_whenUpdate_thenStatus200_andResourceIsUpdated() throws Exception {
         CentroSalud centroSalud = centrosSaludRepository.getOne(1L);
-        CentroSalud unproxiedCentroSalud = (CentroSalud) Hibernate.unproxy(centroSalud);
-        Medico medico = new Medico(123455L ,"PACO", "PORRAS PEREZ", unproxiedCentroSalud);
+//        CentroSalud unproxiedCentroSalud = (CentroSalud) Hibernate.unproxy(centroSalud);
+//        Medico medico = new Medico(123455L ,"PACO", "PORRAS PEREZ", unproxiedCentroSalud);
+        Medico medico = new Medico(123455L ,"PACO", "PORRAS PEREZ");
         repository.save(medico);
 
         Medico updatedMedico = repository.findAllByNss(123455L).get(0);
@@ -135,15 +137,16 @@ class MedicosControllerImplIntegrationTest {
         assertThat(fetchedMedico.getNombre()).isEqualTo("FRANCISCO");
         assertThat(fetchedMedico.getApellidos()).isEqualTo(fetchedMedico.getApellidos());
         assertThat(fetchedMedico.getNss()).isEqualTo(fetchedMedico.getNss());
-        assertThat(fetchedMedico.getCentroSalud().getId()).isEqualTo(fetchedMedico.getCentroSalud().getId());
+//        assertThat(fetchedMedico.getCentroSalud().getId()).isEqualTo(fetchedMedico.getCentroSalud().getId());
     }
 
     @Test
     @Transactional
     public void givenAnExistingMedico_whenDelete_thenStatus200_andResourceIsDeleted() throws Exception {
         CentroSalud centroSalud = centrosSaludRepository.getOne(1L);
-        CentroSalud unproxiedCentroSalud = (CentroSalud) Hibernate.unproxy(centroSalud);
-        Medico medico = new Medico(123455L ,"PACO", "PORRAS PEREZ", unproxiedCentroSalud);
+//        CentroSalud unproxiedCentroSalud = (CentroSalud) Hibernate.unproxy(centroSalud);
+//        Medico medico = new Medico(123455L ,"PACO", "PORRAS PEREZ", unproxiedCentroSalud);
+        Medico medico = new Medico(123455L ,"PACO", "PORRAS PEREZ");
         repository.save(medico);
         medico = repository.findAllByNss(123455L).get(0);
         String jsonBody = gson.toJson(medico);

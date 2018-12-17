@@ -1,28 +1,27 @@
 package com.qualit.kirolrz.storage.entity;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "centro_salud")
-public class CentroSalud extends AuditModel {
+@Table(name="actividad")
+public class Actividad extends AuditModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-
     @Column(name = "nombre", nullable = false, unique = true)
     private String nombre;
 
-    public CentroSalud(){}
+    public Actividad(){}
 
-    public CentroSalud(@NotNull String nombre) {
-        this.nombre = nombre.toUpperCase();
+    public Actividad(String nombre) {
+        this.nombre = nombre;
     }
 
     public Long getId() {
@@ -38,12 +37,12 @@ public class CentroSalud extends AuditModel {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre.toUpperCase();
+        this.nombre = nombre;
     }
 
     @Override
     public String toString() {
-        return "CentroSalud{" +
+        return "Actividad{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 '}';

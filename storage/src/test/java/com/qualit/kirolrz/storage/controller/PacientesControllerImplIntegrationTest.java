@@ -134,7 +134,12 @@ class PacientesControllerImplIntegrationTest {
     @Test
     @Transactional
     public void givenAnExistingPaciente_whenDelete_thenStatus200_andResourceIsDeleted() throws Exception {
-        Paciente paciente = new Paciente("PACO", "PORRAS PEREZ", "45671005E", "email@email.com", new Date(), Genero.MASCULINO);
+        Paciente paciente = new Paciente("PACO",
+                "PORRAS PEREZ",
+                "45671005E",
+                "email@email.com",
+                new Date(),
+                Genero.MASCULINO);
         repository.save(paciente);
         paciente = repository.findAllByDni(paciente.getDni()).get(0);
         String jsonBody = gson.toJson(paciente);

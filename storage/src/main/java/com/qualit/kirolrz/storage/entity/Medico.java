@@ -1,8 +1,6 @@
 package com.qualit.kirolrz.storage.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -27,19 +25,22 @@ public class Medico extends AuditModel {
     @Column(name = "apellidos", nullable = false)
     private String apellidos;
 
+    /*
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "centro_salud_id", nullable = false)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private CentroSalud centroSalud;
+    */
 
     public Medico() {
     }
 
-    public Medico(Long nss, String nombre, String apellidos, CentroSalud centroSalud) {
+//    public Medico(Long nss, String nombre, String apellidos, CentroSalud centroSalud) {
+    public Medico(Long nss, String nombre, String apellidos) {
         this.nss = nss;
         this.nombre = nombre.toUpperCase();
         this.apellidos = apellidos.toUpperCase();
-        this.centroSalud = centroSalud;
+//        this.centroSalud = centroSalud;
     }
 
     public Long getId() {
@@ -74,13 +75,13 @@ public class Medico extends AuditModel {
         this.apellidos = apellidos.toUpperCase();
     }
 
-    public CentroSalud getCentroSalud() {
-        return centroSalud;
-    }
+//    public CentroSalud getCentroSalud() {
+//        return centroSalud;
+//    }
 
-    public void setCentroSalud(CentroSalud centroSalud) {
-        this.centroSalud = centroSalud;
-    }
+//    public void setCentroSalud(CentroSalud centroSalud) {
+//        this.centroSalud = centroSalud;
+//    }
 
     public String toShortString() {
         return this.nombre.toUpperCase() + ' ' + this.apellidos.toUpperCase();
@@ -93,7 +94,7 @@ public class Medico extends AuditModel {
                 ", nss=" + nss +
                 ", nombre='" + nombre + '\'' +
                 ", apellidos='" + apellidos + '\'' +
-                ", centroSalud=" + centroSalud +
+//                ", centroSalud=" + centroSalud +
                 '}';
     }
 }

@@ -29,8 +29,9 @@ class TecnicosGKRepositoryTest {
     @Test
     @DisplayName("When findAllByNombre() I only get one result")
     public void whenFindAllByNombre_IGetOnlyOneResult(){
-        CentroDeportivo centroDeportivo = centrosDeportivosRepository.getOne(2L);
-        TecnicoGK nuevoTecnicoGK = new TecnicoGK("45671005E", "ANDER", "LOPEZ MANCISIDOR", centroDeportivo);
+//        CentroDeportivo centroDeportivo = centrosDeportivosRepository.getOne(2L);
+//        TecnicoGK nuevoTecnicoGK = new TecnicoGK("45671005E", "ANDER", "LOPEZ MANCISIDOR", centroDeportivo);
+        TecnicoGK nuevoTecnicoGK = new TecnicoGK("45671005E", "ANDER", "LOPEZ MANCISIDOR");
         entityManager.persistAndFlush(nuevoTecnicoGK);
 
         List<TecnicoGK> tecnicos = tecnicosGKRepository.findAllByNombre("ANDER");
@@ -39,7 +40,7 @@ class TecnicosGKRepositoryTest {
         assertThat(fetchedTecnicoGK.getNombre()).isEqualTo("ANDER");
         assertThat(fetchedTecnicoGK.getApellidos()).isEqualTo("LOPEZ MANCISIDOR");
         assertThat(fetchedTecnicoGK.getDni()).isEqualTo("45671005E");
-        assertThat(fetchedTecnicoGK.getCentroDeportivo().getId()).isEqualTo(2L);
+//        assertThat(fetchedTecnicoGK.getCentroDeportivo().getId()).isEqualTo(2L);
         assertThat(fetchedTecnicoGK.getCreatedAt()).isNotNull();
         assertThat(fetchedTecnicoGK.getUpdatedAt()).isNotNull();
     }
@@ -47,8 +48,9 @@ class TecnicosGKRepositoryTest {
     @Test
     @DisplayName("When findAllByDni() I only get one result")
     public void whenFindAllByDni_IGetOnlyOneResult(){
-        CentroDeportivo centroDeportivo = centrosDeportivosRepository.getOne(3L);
-        TecnicoGK nuevoTecnicoGK = new TecnicoGK("45671006F", "MANUEL", "FRAGA IRIBARNE", centroDeportivo);
+//        CentroDeportivo centroDeportivo = centrosDeportivosRepository.getOne(3L);
+//        TecnicoGK nuevoTecnicoGK = new TecnicoGK("45671006F", "MANUEL", "FRAGA IRIBARNE", centroDeportivo);
+        TecnicoGK nuevoTecnicoGK = new TecnicoGK("45671006F", "MANUEL", "FRAGA IRIBARNE");
         entityManager.persistAndFlush(nuevoTecnicoGK);
 
         List<TecnicoGK> tecnicos = tecnicosGKRepository.findAllByDni("45671006F");
@@ -57,7 +59,7 @@ class TecnicosGKRepositoryTest {
         assertThat(fetchedTecnicoGK.getNombre()).isEqualTo("MANUEL");
         assertThat(fetchedTecnicoGK.getApellidos()).isEqualTo("FRAGA IRIBARNE");
         assertThat(fetchedTecnicoGK.getDni()).isEqualTo("45671006F");
-        assertThat(fetchedTecnicoGK.getCentroDeportivo().getId()).isEqualTo(3L);
+//        assertThat(fetchedTecnicoGK.getCentroDeportivo().getId()).isEqualTo(3L);
         assertThat(fetchedTecnicoGK.getCreatedAt()).isNotNull();
         assertThat(fetchedTecnicoGK.getUpdatedAt()).isNotNull();
     }

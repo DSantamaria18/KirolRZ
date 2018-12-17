@@ -31,7 +31,8 @@ class MedicosRepositoryTest {
     @DisplayName("When findAllByNombre() I only get one result")
     public void whenFindAllByNombre_IGetOnlyOneResult(){
         CentroSalud centroSalud = centrosSaludRepository.getOne(1L);
-        Medico nuevoMedico = new Medico(123455L, "Manolo", "Delgado Meco", centroSalud);
+        Medico nuevoMedico = new Medico(123455L, "Manolo", "Delgado Meco");
+//        Medico nuevoMedico = new Medico(123455L, "Manolo", "Delgado Meco", centroSalud);
         entityManager.persistAndFlush(nuevoMedico);
 
         List<Medico> medicos = medicosRepository.findAllByNombre("MANOLO");
@@ -40,7 +41,7 @@ class MedicosRepositoryTest {
         assertThat(fetchedMedico.getNombre()).isEqualTo("MANOLO");
         assertThat(fetchedMedico.getApellidos()).isEqualTo("DELGADO MECO");
         assertThat(fetchedMedico.getNss()).isEqualTo(123455L);
-        assertThat(fetchedMedico.getCentroSalud().getId()).isEqualTo(1L);
+//        assertThat(fetchedMedico.getCentroSalud().getId()).isEqualTo(1L);
         assertThat(fetchedMedico.getCreatedAt()).isNotNull();
         assertThat(fetchedMedico.getUpdatedAt()).isNotNull();
     }
@@ -49,7 +50,8 @@ class MedicosRepositoryTest {
     @DisplayName("When findAllByNss() I only get one result")
     public void whenFindAllByNss_IGetOnlyOneResult(){
         CentroSalud centroSalud = centrosSaludRepository.getOne(2L);
-        Medico nuevoMedico = new Medico(123456L, "Manuel", "Delgado Meco", centroSalud);
+//        Medico nuevoMedico = new Medico(123456L, "Manuel", "Delgado Meco", centroSalud);
+        Medico nuevoMedico = new Medico(123456L, "Manuel", "Delgado Meco");
         entityManager.persistAndFlush(nuevoMedico);
 
         List<Medico> medicos = medicosRepository.findAllByNss(123456L);
@@ -58,7 +60,7 @@ class MedicosRepositoryTest {
         assertThat(fetchedMedico.getNombre()).isEqualTo("MANUEL");
         assertThat(fetchedMedico.getApellidos()).isEqualTo("DELGADO MECO");
         assertThat(fetchedMedico.getNss()).isEqualTo(123456L);
-        assertThat(fetchedMedico.getCentroSalud().getId()).isEqualTo(2L);
+//        assertThat(fetchedMedico.getCentroSalud().getId()).isEqualTo(2L);
         assertThat(fetchedMedico.getCreatedAt()).isNotNull();
         assertThat(fetchedMedico.getUpdatedAt()).isNotNull();
     }
